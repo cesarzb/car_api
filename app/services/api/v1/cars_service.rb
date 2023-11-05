@@ -1,7 +1,6 @@
 module Api
   module V1
     class CarsService
-
       attr_accessor :body, :status
 
       def initialize
@@ -10,7 +9,7 @@ module Api
       end
 
       def get_car(id)
-        if !set_car
+        if !set_car(id)
           @body = {error: "Couldn't find a car with provided id"}
           @status = :not_found
         end
@@ -19,8 +18,11 @@ module Api
         @status = :ok
       end
 
-      def get_cars
-        @cars = Car.all
+      def get_cars(page)
+        per_page = 5 # Number of cars per page
+        offset = (page - 1) * per_page
+
+        @cars = Car.limit(per_page).offset(offset)
 
         @body = @cars
         @status = :ok
@@ -45,7 +47,7 @@ module Api
       end
 
       def update_car(id, car_params, brand_name)
-        if !set_car
+        if !set_car(id)
           @body = {error: "Couldn't find a car with provided id"}
           @status = :not_found
         end
@@ -66,7 +68,7 @@ module Api
       end
 
       def delete_car(id)
-        if !set_car
+        if !set_car(id)
           @body = {error: "Couldn't find a car with provided id"}
           @status = :not_found
         end
@@ -81,8 +83,8 @@ module Api
 
       private
 
-      def set_car
-        @car = Car.find(params[:id])
+      def set_car(id)
+        @car = Car.find(id)
         rescue ActiveRecord::RecordNotFound
           return false
       end

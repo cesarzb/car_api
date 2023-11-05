@@ -4,7 +4,8 @@ module Api
     # GET /brands
     def index
       brands_service = Api::V1::BrandsService.new
-      brands_service.get_brands
+      page = params[:page].to_i || 1
+      brands_service.get_brands(page)
 
       render json: brands_service.body, status: brands_service.status
     end
