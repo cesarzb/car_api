@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  seats: 1
+  brand: MyString
+  model: MyString
+  price: 9.99
+
+two:
+  seats: 1
+  brand: MyString
+  model: MyString
+  price: 9.99
