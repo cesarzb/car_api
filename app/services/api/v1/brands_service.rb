@@ -19,7 +19,7 @@ module Api
       end
 
       def get_brands(page)
-        per_page = 5 # Number of cars per page
+        per_page = 12 # Number of cars per page
         offset = (page - 1) * per_page
 
         @brands = Brand.limit(per_page).offset(offset)
